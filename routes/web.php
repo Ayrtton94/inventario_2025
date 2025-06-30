@@ -62,10 +62,11 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/listar/usuario', [UserController::class, 'Listar']);
     Route::get('/usuarios/listar', [UserController::class, 'ListarUser']);
     Route::get('/get/user/{id}', [UserController::class, 'getUser']); 
-    Route::get('/get/roles', [UserController::class, 'Roles']); 
+    Route::get('/get/roles', [UserController::class, 'Roles']);     
 
     Route::get('/listar/roles', [RoleController::class, 'Listar']);
     Route::get('/get/permission', [RoleController::class, 'Permission']); 
+    Route::get('/get/roles/{id}', [RoleController::class, 'getroles']); 
 
     Route::get('/listar/form_tect', [TechnicalFormController::class, 'Listar']);
     Route::get('/get/tecnico/{id}', [TechnicalFormController::class, 'getTecnico']);

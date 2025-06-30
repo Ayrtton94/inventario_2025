@@ -39,7 +39,7 @@ class RoleController extends Controller
             'name' => 'required|string|max:255|unique:roles,name',
             'permissions' => 'required|array',
             'permissions.*' => 'exists:permissions,id',
-        ]);
+        ]);     
 
         // Crear rol
         $role = Role::create([
@@ -69,15 +69,34 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        return view ('roles.edit', ['rolesId' => $id]);
+         return view('roles.edite', ['rolesId' => $id]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        // Validación básica
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'permissions' => 'array|required',
+            'permissions.*' => 'integer|exists:permissions,id'
+        ]);
+
+        $role = Role::findOrFail($id); // Asegura que exista
+
+        $role->update([
+            'name' => $request->name,
+        ]);
+
+        // Sincroniza permisos
+        $role->syncPermissions($request->permissions);
+
+        return response()->json([
+            'message' => 'Rol actualizado correctamente',
+            'role' => $role
+        ], 200);
     }
 
     /**
@@ -112,6 +131,17 @@ class RoleController extends Controller
     public function Permission()
     {
         $data = Permission::all();
+        return response()->json($data, 200);
+    }
+
+    public function getroles($id)
+    {
+        $data = Role::with('permissions')->find($id);
+
+        if (!$data) {
+            return response()->json(['error' => 'Rol no encontrado'], 404);
+        }
+
         return response()->json($data, 200);
     }
 

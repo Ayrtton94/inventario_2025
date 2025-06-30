@@ -1,7 +1,7 @@
 @extends('layouts.menu')
 
 @section('content')
-  <asignar-index></asignar-index>
+ <index-detail-product></index-detail-product>
 @endsection
 <script>
     window.userPermissions = @json(Auth::user()->getAllPermissions()->pluck('name'));
