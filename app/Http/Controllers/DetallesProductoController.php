@@ -114,7 +114,8 @@ class DetallesProductoController extends Controller
     public function Producto()
     {
         try {
-            $productos = Product::select('id', 'nombre')->get();
+            $productos = Product::select('id','cod_producto','producto')
+            ->get();
             return response()->json($productos);
         } catch (\Exception $e) {
             return response()->json([
@@ -124,7 +125,19 @@ class DetallesProductoController extends Controller
         }
     }
 
+    /*public function getDetalles($id){
+        $data = Detalles_producto::select('id','cod_art','stb')
+         ->where('producto_id', $id)->get();
+        return response()->json($data, 200);
+    }*/
     public function getDetalles($id){
+        $data = Detalles_producto::select('id','cod_art','stb')
+        ->where('cod_art', $id)->get();
+        return response()->json($data, 200);
+    }
+
+
+    public function fetchDetalles($id){
         $data = Detalles_producto::find($id);
         return response()->json($data, 200);
     }

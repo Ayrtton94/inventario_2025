@@ -68,7 +68,7 @@
                   <button @click="irTecnico(pendiente.id)" class="btn btn-primary btn-sm">
                     <i class="fas fa-pen-nib"></i>
                   </button>
-                </td>
+                </td>             
                 <td>
                   <input class="form-check-input" type="checkbox" :value="pendiente.id" v-model="seleccionados" />
                 </td>
@@ -137,7 +137,10 @@ export default {
         pendientes: [],
         usuarios: [],
         seleccionados: [],
+        asignaciones: [],
+        pendienteEnModal: null,
         usuarioSeleccionado: '',
+        mostrarModal: false,
 
         pagination: {
             current_page: 1,
@@ -239,6 +242,9 @@ export default {
         irTecnico(id) {
             window.location.href = `/tecnico/create/${id}`;
         },
+        /*irAsignarProducto(id) {
+            window.location.href = `/pendiente/${id}/asignar-producto`;
+        },*/
         eliminar(id) {
             Swal.fire({
                 title: '¿Estás seguro?',
@@ -261,7 +267,42 @@ export default {
                 }
             });
         },
+        async verAsignaciones(id) {
+            try {
+              const res = await axios.get(`/pendiente/${id}/asignaciones`);
+              this.asignaciones = res.data.pendiente_productos;
+              this.pendienteEnModal = res.data;
+              const modal = new bootstrap.Modal(document.getElementById('modalVerAsignaciones'));
+              modal.show();
+            } catch (error) {
+              console.error(error);
+              Swal.fire('Error', 'No se pudo cargar la asignación', 'error');
+            }
+      },
+      abrirModalProducto() {
+      this.mostrarModal = true;
+
+      this.$nextTick(() => {
+        const modalEl = this.$refs.modalAsignaciones;
+
+        // Crear una instancia de Bootstrap Modal solo si aún no lo está
+        const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+        modal.show();
+      });
     },
+
+        cerrarModalProducto() {
+            this.mostrarModal = false;
+            this.asignaciones = [];
+            this.pendienteEnModal = null;
+            const modalEl = this.$refs.modalAsignaciones;
+            const modal = bootstrap.Modal.getInstance(modalEl);
+            if (modal) {
+                modal.hide();
+            }
+        },
+
+},
     
 }
 </script>

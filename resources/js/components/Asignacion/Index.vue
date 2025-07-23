@@ -11,7 +11,7 @@
           <table class="table table-bordered table-hover align-middle text-center small">
             <thead class="table-dark text-nowrap">
               <tr>
-                <th>Acción</th>
+                <th >Acción</th>
                 <th>#</th>
                 <th>Departamento</th>
                 <th>Provincia</th>
@@ -34,7 +34,7 @@
             <tbody>
               <tr v-for="pendiente in pendientes" :key="pendiente.id">
                 <td>
-                  <button @click="irTecnico(pendiente.id)" class="btn btn-primary btn-sm">
+                  <button @click="irTecnico(pendiente.id)" class="btn btn-primary btn-sm" v-if="can('tecnico.create')">
                     <i class="fas fa-pen-nib"></i>
                   </button>
                 </td>

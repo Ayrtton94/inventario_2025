@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\TechnicalForm;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TechnicalFormController extends Controller
 {
@@ -96,8 +97,8 @@ class TechnicalFormController extends Controller
 
     public function listar()
     {
-        // Cargar relación con conteo
-        $forms = TechnicalForm::paginate(10);
+        $userId = Auth::id();
+        $forms = TechnicalForm::where('user_id', $userId)->paginate(10);
 
         $data = $forms->map(function ($form) {
             return [

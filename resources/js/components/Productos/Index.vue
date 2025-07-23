@@ -33,7 +33,7 @@
                                 <td>{{ producto.id }}</td>
                                 <td>{{ producto.cod_producto }}</td>
                                 <td>{{ producto.producto }}</td>
-                                <td>{{ producto.cantidad }}</td>
+                                <td>{{ producto.total_detalles }}</td>
                             </tr>
                         </tbody>
                     </table>

@@ -35,4 +35,10 @@ class Pendientes extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function pendienteProductos()
+    {
+        return $this->hasMany(PendienteProducto::class, 'pendiente_id');
+    }
+
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Detalles_producto;
+use App\Models\DetallePendienteProducto;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -114,6 +115,28 @@ class ProductController extends Controller
         $data = Product::find($id);
         return response()->json($data, 200);
     }
+
+    // ProductController.php
+    public function buscarPorCodigo($codigo)
+    {
+        $producto = Product::where('cod_producto', $codigo)->first();
+
+        if (!$producto) {
+            return response()->json(['error' => 'Producto no encontrado'], 404);
+        }
+
+        // Obtener los IDs de los detalles ya asignados
+        $detallesAsignados = DetallePendienteProducto::pluck('detalle_producto_id')->toArray();
+
+        // Filtrar detalles del producto que no estén asignados
+        $detallesDisponibles = $producto->detalles()->whereNotIn('id', $detallesAsignados)->get();
+
+        return response()->json([
+            'producto' => $producto,
+            'detalles' => $detallesDisponibles,
+        ]);
+    }
+
 
     
 }

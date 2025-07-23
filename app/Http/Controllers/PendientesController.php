@@ -145,5 +145,4 @@ class PendientesController extends Controller
 
     return response()->json(['message' => 'Asignación completa']);
 }
-
 }

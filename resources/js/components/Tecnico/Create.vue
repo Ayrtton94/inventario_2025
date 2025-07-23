@@ -287,10 +287,10 @@ import axios from 'axios';
                 
             };
         },
-
         mounted() {   
             this.getCliente(); 
-            this.getTecnico();        
+            this.getTecnico();  
+            this.cargarAsignaciones();  
         },
         methods: {
             regreso() {
@@ -323,6 +323,27 @@ import axios from 'axios';
                   this.form.user_id = response.data.id;
                 } catch (error) {
                   console.error('Error al obtener técnico:', error);
+                }
+              },
+              async cargarAsignaciones() {
+                try {
+                  const res = await axios.get(`/api/pendiente/${this.clienteId}/asignaciones`);
+                  console.log('Asignaciones cargadas:', res.data);
+
+                  const detalles = res.data.flatMap(p => p.detalles.map(d => d.detalle_producto));
+                  
+                  if (detalles[0]) this.form.settopbox1 = detalles[0].stb || '';
+                  if (detalles[1]) this.form.settopbox2 = detalles[1].stb || '';
+                  if (detalles[2]) this.form.settopbox3 = detalles[2].stb || '';
+                  if (detalles[3]) this.form.settopbox4 = detalles[3].stb || '';
+
+                  if (detalles[0]) this.form.smartcard1 = detalles[0].smartcard || '';
+                  if (detalles[1]) this.form.smartcard2 = detalles[1].smartcard || '';
+                  if (detalles[2]) this.form.smartcard3 = detalles[2].smartcard || '';
+                  if (detalles[3]) this.form.smartcard4 = detalles[3].smartcard || '';
+
+                } catch (e) {
+                  console.error('Error al cargar asignaciones:', e);
                 }
               },
 
@@ -380,10 +401,8 @@ import axios from 'axios';
                     servis_7: null,
                   };
           this.selectedServices = [];
-
          }
-        }       
-
+        }         
     }
 </script>
 

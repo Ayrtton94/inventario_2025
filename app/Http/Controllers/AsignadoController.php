@@ -16,11 +16,16 @@ class AsignadoController extends Controller
        return view('asignar.index');
     }
 
-    public function asignado()
+    public function asignados()
     {
-        $userId = Auth::id(); // Obtener el ID del usuario autenticado
-
-        $pendientes = Pendientes::where('user_id', $userId)->paginate(10); // Puedes ajustar el número de registros por página
+       $user = Auth::user();
+        // Si el usuario es admin, obtiene todos los registros
+        if ($user->hasRole('Admin')) {
+            $pendientes = Pendientes::with('user')->paginate(10);
+        } else {
+            // Usuarios normales solo ven sus asignados
+            $pendientes = Pendientes::where('user_id', $user->id)->paginate(10);
+        }
 
         return response()->json([
             'data' => $pendientes->items(),

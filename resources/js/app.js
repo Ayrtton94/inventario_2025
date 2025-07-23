@@ -7,6 +7,19 @@
 import './bootstrap';
 import { createApp } from 'vue';
 
+// Importar dependencias principales
+import 'jquery';
+import 'popper.js';
+import 'bootstrap';
+
+// Estilos y scripts de AdminLTE
+import 'admin-lte';
+import 'admin-lte/dist/css/adminlte.min.css';
+
+// Este es el nuevo correcto
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
+
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
  * registering components with the application instance so they are ready
@@ -82,6 +95,13 @@ app.component('import-excel', ImportExcel);
 ///Asignacion
 import AsignarIndex from './components/Asignacion/Index.vue';
 app.component('asignar-index', AsignarIndex);
+
+///Asignar Producto
+import IndexAsignarProducto from './components/Asignar_Producto/Index.vue';
+app.component('index-ap', IndexAsignarProducto);
+
+import AsignarProducto from './components/Asignar_Producto/Form.vue';
+app.component('asignar-producto', AsignarProducto);
 
 /**
  * The following block of code may be used to automatically register your

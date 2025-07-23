@@ -16,11 +16,13 @@ class ProductsImport implements ToModel, WithHeadingRow
     public function model(array $row)
     {
         if (isset($row['cod_producto']) && $row['cod_producto'] !== null) {
-            Product::create([
-                'cod_producto' => $row['cod_producto'],
-                'producto' => $row['producto'],
-                'cantidad' => $row['cantidad'],
-            ]);
-        }
+            Product::updateOrCreate(
+                ['cod_producto' => $row['cod_producto']], 
+                [
+                    'producto' => $row['producto'],
+                    'cantidad' => $row['cantidad']
+                ]
+            );
+        } 
     }
 }
