@@ -10,7 +10,7 @@
                             Crear Nuevo
                         </button>
                         <table class="table table-hover table-bordered align-middle text-center">
-                            <thead class="thead-dark">
+                            <thead class="table-primary text-nowrap">
                             <tr>
                                 <th colspan="2">ACCION</th>
                                 <th>#</th>

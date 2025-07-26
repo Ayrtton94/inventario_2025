@@ -49,43 +49,43 @@ import EditRoles from './components/Roles/Edit.vue';
 app.component('edit-roles', EditRoles);
 
 ///Clientes
-import IndexPendiente from './components/Pendiente/Index.vue';
+import IndexPendiente from './components/tvHD/Pendiente/Index.vue';
 app.component('index-pendiente', IndexPendiente);
 
-import CreatePendiente from './components/Pendiente/Create.vue';
+import CreatePendiente from './components/tvHD/Pendiente/Create.vue';
 app.component('create-pendiente', CreatePendiente);
 
-import EditarPendiente from './components/Pendiente/Edit.vue';
+import EditarPendiente from './components/tvHD/Pendiente/Edit.vue';
 app.component('editar-pendiente', EditarPendiente);
 
 //Tecnico
-import IndexTecnico from './components/Tecnico/Index.vue';
+import IndexTecnico from './components/tvHD/Tecnico/Index.vue';
 app.component('index-tecnico', IndexTecnico);
 
-import CreateTecnico from './components/Tecnico/Create.vue';
+import CreateTecnico from './components/tvHD/Tecnico/Create.vue';
 app.component('create-tecnico', CreateTecnico);
 
-import EditTecnico from './components/Tecnico/Edit.vue';
+import EditTecnico from './components/tvHD/Tecnico/Edit.vue';
 app.component('edit-tecnico', EditTecnico);
 
 ///Productos
-import IndexProducts from './components/Productos/Index.vue';
+import IndexProducts from './components/tvHD/Productos/Index.vue';
 app.component('index-product', IndexProducts);
 
-import CreateProducts from './components/Productos/Create.vue';
+import CreateProducts from './components/tvHD/Productos/Create.vue';
 app.component('create-product', CreateProducts);
 
-import EditarProducts from './components/Productos/Edit.vue';
+import EditarProducts from './components/tvHD/Productos/Edit.vue';
 app.component('editar-product', EditarProducts);
 
 ///Detalles del Producto
-import IndexDetailProducts from './components/Detalle_Producto/Index.vue';
+import IndexDetailProducts from './components/tvHD/Detalle_Producto/Index.vue';
 app.component('index-detail-product', IndexDetailProducts);
 
-import CreateDetailProducts from './components/Detalle_Producto/Create.vue';
+import CreateDetailProducts from './components/tvHD/Detalle_Producto/Create.vue';
 app.component('create-detail-product', CreateDetailProducts);
 
-import EditDetailProducts from './components/Detalle_Producto/Edit.vue';
+import EditDetailProducts from './components/tvHD/Detalle_Producto/Edit.vue';
 app.component('edit-detail-product', EditDetailProducts);
 
 ///Import
@@ -93,15 +93,49 @@ import ImportExcel from './components/Excel/Index.vue';
 app.component('import-excel', ImportExcel);
 
 ///Asignacion
-import AsignarIndex from './components/Asignacion/Index.vue';
+import AsignarIndex from './components/tvHD/Asignacion/Index.vue';
 app.component('asignar-index', AsignarIndex);
 
 ///Asignar Producto
-import IndexAsignarProducto from './components/Asignar_Producto/Index.vue';
+import IndexAsignarProducto from './components/tvHD/Asignar_Producto/Index.vue';
 app.component('index-ap', IndexAsignarProducto);
 
-import AsignarProducto from './components/Asignar_Producto/Form.vue';
+import AsignarProducto from './components/tvHD/Asignar_Producto/Form.vue';
 app.component('asignar-producto', AsignarProducto);
+
+///Pendientedth
+import IndexPendienteDth from './components/DTH/Pendiente/Index.vue';
+app.component('index-pendiente-dth', IndexPendienteDth);
+
+import CreatePendienteDth from './components/DTH/Pendiente/Create.vue';
+app.component('create-pendiente-dth', CreatePendienteDth);
+
+import EditPendienteDth from './components/DTH/Pendiente/Edite.vue';
+app.component('edite-pendiente-dth', EditPendienteDth);
+
+///Asignadoth
+import AsignarDthIndex from './components/DTH/Asignacion/Index.vue';
+app.component('asignar-dth-index', AsignarDthIndex);
+
+///ProductosDth
+import IndexProductsDth from './components/DTH/Productos/Index.vue';
+app.component('index-products-dth', IndexProductsDth);
+
+import CreateProductsDth from './components/DTH/Productos/Create.vue';
+app.component('create-products-dth', CreateProductsDth);
+
+import EditProductsDth from './components/DTH/Productos/Edit.vue';
+app.component('edit-products-dth', EditProductsDth);
+
+///Detalles del Producto DTH
+import IndexDetailProductsDth from './components/DTH/Detalle_Producto/Index.vue';
+app.component('index-detail-products-dth', IndexDetailProductsDth);
+
+import CreateDetailProductsDth from './components/DTH/Detalle_Producto/Create.vue';
+app.component('create-detail-products-dth', CreateDetailProductsDth);
+
+import EditDetailProductsDth from './components/DTH/Detalle_Producto/Edit.vue';
+app.component('edit-detail-products-dth', EditDetailProductsDth);
 
 /**
  * The following block of code may be used to automatically register your

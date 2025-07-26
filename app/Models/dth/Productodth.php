@@ -1,25 +1,26 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\dth;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+
+class Productodth extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    protected $table = 'productodths';
     protected $dates = ['deleted_at'];
-    protected $table = 'products'; // Asegúrate de que el nombre de la tabla sea correcto
     protected $fillable = [
         'cod_producto',        
         'producto',
         'cantidad'
     ];
 
-    public function detalles()
+     public function detallesdth()
     {
-        return $this->hasMany(Detalles_producto::class, 'producto_id');
+        return $this->hasMany(Detalles_productodth::class, 'producto_id');
     }
 }

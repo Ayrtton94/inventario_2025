@@ -33,27 +33,25 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        if ($request->get('id')){
+public function store(Request $request)
+{
+    $validated = $request->validate([
+        'cod_producto' => 'required|unique:products,cod_producto',
+        'producto' => 'required|string',
+        'cantidad' => 'required|integer|min:0',
+    ]);
 
-            $id = $request->get('id');
+    try {
+        $data = Product::create($request->all());
 
-            $data = Product::find($id);
-
-            $data->update($request->all());
-    
-        }else{
-            //$request['user_id'] = auth()->id();
-            $data = Product::create($request->all());
-        }
-
-        if ($data) {
-            return response()->json($data, 200);
-        } else {
-            return response()->json(['message' => 'Error al crear'], 402);
-        }
+        return response()->json($data, 200);
+    } catch (\Exception $e) {
+        return response()->json([
+            'message' => 'Error al crear',
+            'error' => $e->getMessage(),
+        ], 500);
     }
+}
 
     /**
      * Display the specified resource.

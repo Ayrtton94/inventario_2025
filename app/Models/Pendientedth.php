@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
-class Pendientes extends Model
+class Pendientedth extends Model
 {
-    use HasFactory;
+   use HasFactory;
     use SoftDeletes;
     protected $dates = ['deleted_at'];
     protected $fillable = [
@@ -30,10 +30,9 @@ class Pendientes extends Model
         'tipo_cliente_grupo_afinidad',
         'origen_abonado'
     ];
-
+    
     public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
+        {
+            return $this->belongsTo(User::class);
+        }
 }

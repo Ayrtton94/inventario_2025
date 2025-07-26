@@ -12,7 +12,7 @@
                     Crear Nuevo
               </button>
               <table class="table table-striped table-bordered text-center">
-                <thead class="table-light">
+                <thead class="table-primary">
                   <tr>
                     <th>ID</th>
                     <th>Técnico</th>

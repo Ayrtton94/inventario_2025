@@ -290,7 +290,7 @@ import axios from 'axios';
         mounted() {   
             this.getCliente(); 
             this.getTecnico();  
-            this.cargarAsignaciones();  
+            //this.cargarAsignaciones();  
         },
         methods: {
             regreso() {
@@ -325,7 +325,7 @@ import axios from 'axios';
                   console.error('Error al obtener técnico:', error);
                 }
               },
-              async cargarAsignaciones() {
+              /*async cargarAsignaciones() {
                 try {
                   const res = await axios.get(`/api/pendiente/${this.clienteId}/asignaciones`);
                   console.log('Asignaciones cargadas:', res.data);
@@ -345,7 +345,7 @@ import axios from 'axios';
                 } catch (e) {
                   console.error('Error al cargar asignaciones:', e);
                 }
-              },
+              },*/
 
 
             async formSubmit() {

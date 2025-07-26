@@ -8,10 +8,10 @@
                     <div class="card-body">
                         <form @submit.prevent="formSubmit">
                         <div class="mb-5">
-                            <h3 class="mb-4">📋 Información de Ventas Pendientes</h3>
+                            <h3 class="mb-4">📋 Información de Clientes</h3>
                     
-                            <table class="table table-bordered w-75 mx-auto text-center align-middle shadow">
-                            <thead class="table-dark">
+                            <table class="table table-bordered w-75 mx-auto text-center align-middle">
+                            <thead class="table-danger">
                                 <tr>
                                 <th>Campo</th>
                                 <th>Valor</th>
@@ -64,7 +64,7 @@
                                 </tr>
                                 <tr>
                                     <td><strong>Fecha Ingreso</strong></td>
-                                    <td><input v-model="form.fecha_ingreso" type="text" class="form-control" required /></td>
+                                    <td><input v-model="form.fecha_ingreso" type="date" class="form-control" required /></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Fecha Age.</strong></td>
@@ -117,24 +117,17 @@ import axios from 'axios';
     },
     methods: {
         regreso() {
-            window.location.href = '/pendiente'; 
+            window.location.href = '/pendientedth'; 
         },
-        /*formSubmit2(){
-                console.log(this.form)
-                let url = '/pendiente'
-                axios.post(url, this.form).then((response)=>{
-                    this.form = response.data;                    
-                    //window.location.reload(); // aquí se recarga la página
-                })
-        },*/
+        
         formSubmit(){
              try {       
 
-                const response =  axios.post('/pendiente', this.form);                
-                Swal.fire('Éxito', 'Venta registrada correctamente', 'success'); 
+                const response =  axios.post('/pendientedth', this.form);                
+                Swal.fire('Éxito', 'Cliente registrada correctamente', 'success'); 
                 
                 // Reseteamos los campos
-                this.resetForm();
+                //this.resetForm();
 
             } catch (error) {
                 Swal.fire('Error', error.message, 'error');

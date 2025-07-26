@@ -9,7 +9,7 @@
                             Crear Nuevo
                         </button>
                         <table class="table table-hover table-bordered align-middle text-center">
-                        <thead class="thead-dark">
+                        <thead class="table-danger text-nowrap">
                             <tr>
                                 <th colspan="2">ACCION</th>
                                 <th>#</th> 
@@ -116,7 +116,7 @@ import Swal from 'sweetalert2';
         },
         async loadProductos(page = 1) {
             try {
-                const response = await axios.get(`/api/listar/producto?page=${page}`);
+                const response = await axios.get(`/listar/productosdth?page=${page}`);
                 this.productos = response.data.data;
                 this.pagination = {
                     current_page: response.data.current_page,
@@ -130,11 +130,11 @@ import Swal from 'sweetalert2';
         },
 
         irCrear() {
-            window.location.href = '/productos/create';
+            window.location.href = '/productosdth/create';
         },
 
         irEditar(id) {
-            window.location.href = `/productos/${id}/edit`;
+            window.location.href = `/productosdth/${id}/edit`;
         },
 
         eliminar(id) {
@@ -150,7 +150,7 @@ import Swal from 'sweetalert2';
             }).then(async (result) => {
                 if (result.isConfirmed) {
                 try {
-                    await axios.delete(`/productos/${id}`);
+                    await axios.delete(`/productosdth/${id}`);
                     Swal.fire('¡Eliminado!', 'El producto ha sido eliminado.', 'success');
                     this.getPendientes();
                 } catch (error) {

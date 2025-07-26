@@ -11,7 +11,7 @@
                             <h3 class="mb-4">📋Detalle productos</h3>
                     
                             <table class="table table-bordered w-75 mx-auto text-center align-middle shadow">
-                            <thead class="table-dark">
+                            <thead class="table-danger">
                                 <tr>
                                 <th>Campo</th>
                                 <th>Valor</th>
@@ -71,61 +71,69 @@ import Swal from 'sweetalert2';
 import axios from 'axios';
 
     export default {
-        data() {
-            return {
-                form: {},
-                productos:[],
-                cargandoProductos: false,
-            };
-        },
-        mounted() {    
-            this.cargarProduct();
-        },
-        methods: {
-            regreso() {
-                window.location.href = '/detalle_productos'; 
+         name: "Editar",
+            props: {
+                detailproductId: {
+                type: [Number, String],
+                required: true,
+                },
             },
 
-            async cargarProduct() {
-                this.cargandoProductos = true;
-                try {
-                    const response = await axios.get('/listar/producto');
-                    this.productos = response.data;
-                } catch (error) {
-                    console.error('Error cargando producto:', error);
-                } finally {
-                    this.cargandoProductos = false;
+            data(){
+                return {
+                    form: {},
+                    productos:[],
+                    cargandoProductos: false,       
                 }
+            }, 
+
+            mounted() {    
+                this.cargarProduct();
+                this.getDetalles();
             },
 
-            formSubmit(){
-                try {       
+            methods: {
+                regreso() {
+                    window.location.href = '/detalle_productos'; 
+                },
 
-                    const response =  axios.post('/detalle_productos', this.form);                
-                    Swal.fire('Éxito', 'Venta registrada correctamente', 'success'); 
-                    
-                    // Reseteamos los campos
-                    this.resetForm();
+                async getDetalles() {
+                    try {
+                        const response = await axios.get(`/get/detailproduct/${this.detailproductId}`);
+                        this.form = response.data;
+                        console.log(this.form);
+                    } catch (error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: error.response?.data?.error || 'No se pudo cargar el vehículo',
+                            timer: 2000
+                        });
+                    }
+                },
 
-                } catch (error) {
-                    Swal.fire('Error', error.message, 'error');
-                }               
-            },
+                async cargarProduct() {
+                    this.cargandoProductos = true;
+                    try {
+                        const response = await axios.get('/listar/producto');
+                        this.productos = response.data;
+                    } catch (error) {
+                        console.error('Error cargando producto:', error);
+                    } finally {
+                        this.cargandoProductos = false;
+                    }
+                },                
 
-            resetForm() {
-                this.form = {
-                    fecha_ingreso: '',
-                    stb: '',
-                    cod_art: '',
-                    estado: ''
-                };
-            }
+                formSubmit(){
+                    try {       
+
+                        const response =  axios.post('/detalle_productos', this.form);                
+                        Swal.fire('Éxito', 'Venta registrada correctamente', 'success'); 
+
+                    } catch (error) {
+                        Swal.fire('Error', error.message, 'error');
+                    }               
+                },
         },
     }
 </script>
-<style scoped>
-  .table th,
-  .table td {
-    vertical-align: middle !important;
-  }
-  </style>

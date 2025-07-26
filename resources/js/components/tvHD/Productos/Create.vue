@@ -11,7 +11,7 @@
                             <h3 class="mb-4">📋 Productos</h3>
                     
                             <table class="table table-bordered w-75 mx-auto text-center align-middle shadow">
-                            <thead class="table-dark">
+                            <thead class="table-primary text-nowrap">
                                 <tr>
                                 <th>Campo</th>
                                 <th>Valor</th>
@@ -24,7 +24,7 @@
                                 </tr>
                                 <tr>
                                     <td><strong>PRODUCTO</strong></td>
-                                    <td><input v-model="form.nombre" type="text" class="form-control" required /></td>
+                                    <td><input v-model="form.producto" type="text" class="form-control" required /></td>
                                 </tr>
                                 <tr>
                                     <td><strong>CANTIDAD</strong></td>
@@ -67,19 +67,19 @@ import axios from 'axios';
             regreso() {
                 window.location.href = '/productos'; 
             },
-
-            formSubmit(){
-                try {       
-
-                    const response =  axios.post('/productos', this.form);                
-                    Swal.fire('Éxito', 'Venta registrada correctamente', 'success'); 
-                    
-                    // Reseteamos los campos
+        async formSubmit() {
+                try {
+                    const response = await axios.post('/productos', this.form);
+                    Swal.fire('Éxito', 'Producto registrado correctamente', 'success');
                     this.resetForm();
-
                 } catch (error) {
-                    Swal.fire('Error', error.message, 'error');
-                }               
+                    console.error(error);
+                    if (error.response?.data?.message) {
+                        Swal.fire('Error', error.response.data.message, 'error');
+                    } else {
+                        Swal.fire('Error', 'Algo salió mal', 'error');
+                    }
+                }
             },
             resetForm() {
                 this.form = {

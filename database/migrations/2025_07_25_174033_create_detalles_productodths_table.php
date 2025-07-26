@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('detalles_productos', function (Blueprint $table) {
+        Schema::create('detalles_productodths', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('producto_id')->constrained('products')->onDelete('cascade'); // Clave foránea
+            $table->foreignId('producto_id')->constrained('productodths')->onDelete('cascade'); // Clave foránea
             $table->string('fecha_ingreso');
             $table->string('stb');
             $table->string('cod_art'); // Este campo también puede ser usado para relacionar al momento de importar
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('detalles_productos');
+        Schema::dropIfExists('detalles_productodths');
     }
 };

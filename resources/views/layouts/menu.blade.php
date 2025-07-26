@@ -13,12 +13,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 
 
     <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -47,10 +47,10 @@
         }
 
         .sidebar a {
-            color: white;
+            color: rgb(96, 95, 95);
             text-decoration: none;
             display: block;
-            padding: 12px;
+            padding: 13px;
             transition: background 0.3s, padding-left 0.3s;
         }
 
@@ -120,22 +120,58 @@
                 </div>
                 <br>
                 <ul class="nav flex-column">
-                     <li class="nav-item">
-                            @can('user.index')
-                                <a class="nav-link" href="{{ route('pendiente.index') }}">Cliente</a>
-                            @endcan                           
+                    <li class="nav-item">                           
+                        <a class="nav-link" href="{{ route('home') }}">Inicio</a>                                 
+                    </li>
+
+                        <li class="nav-item dropdown">
+                            @if(auth()->user()->can('user.index') || auth()->user()->can('pendientedth.index'))
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCliente" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Cliente
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownCliente">
+                                    @can('user.index')
+                                        <a class="dropdown-item" href="{{ route('pendiente.index') }}">Cliente</a>
+                                    @endcan
+                                    @can('user.index')
+                                        <a class="dropdown-item" href="{{ route('pendientedth.index') }}">Cliente DTH</a>
+                                    @endcan
+                                </div>
+                            @endif
                         </li>
                         <!-- Puedes agregar más opciones aquí -->
-                        <li class="nav-item">
-                            @can('producto.index')
-                                <a class="nav-link" href="{{ route('productos.index') }}">Producto</a>                                
-                            @endcan                            
+                        <li class="nav-item dropdown">
+                            @if(auth()->user()->can('user.index') || auth()->user()->can('producto.index'))
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAsignado" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Productos
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownAsignado">
+                                    @can('producto.index')
+                                        <a class="dropdown-item" href="{{  route('productos.index') }}">Productos</a>
+                                    @endcan
+                                    @can('producto.index')
+                                        <a class="dropdown-item" href="{{ route('productosdth.index') }}">Productos DTH</a>
+                                    @endcan
+                                </div>
+                            @endif
                         </li>
-                         <li class="nav-item">
-                            @can('detalle_producto.index')
-                                <a class="nav-link" href="{{ route('detalle_productos.index') }}">Detalle del producto</a>
-                            @endcan                            
+
+                        <li class="nav-item dropdown">
+                            @if(auth()->user()->can('user.index') || auth()->user()->can('detalle_producto.index'))
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAsignado" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Detalle del producto
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownAsignado">
+                                    @can('detalle_producto.index')
+                                        <a class="dropdown-item" href="{{  route('detalle_productos.index') }}">Detalle del producto</a>
+                                    @endcan
+                                    @can('detalle_producto.index')
+                                        <a class="dropdown-item" href="{{ route('detalles_productodth.index') }}">Detalle del producto DTH</a>
+                                    @endcan
+                                </div>
+                            @endif
                         </li>
+
 
                         <li class="nav-item">
                             @can('importexcel.index')
@@ -160,12 +196,23 @@
                             <a class="nav-link" href="{{ route('tecnico.index') }}">Formulario tecnico</a>                                                       
                             @endcan
                         </li>
-
-                        <li class="nav-item"> 
-                            @can('asignar.index')                           
-                            <a class="nav-link" href="{{ route('asignado.index') }}">Asignados</a>                                                       
-                            @endcan
+                        
+                        <li class="nav-item dropdown">
+                            @if(auth()->user()->can('user.index') || auth()->user()->can('asignar.index'))
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAsignado" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Asignados
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownAsignado">
+                                    @can('asignar.index')
+                                        <a class="dropdown-item" href="{{ route('asignado.index') }}">Asignados</a>
+                                    @endcan
+                                    @can('asignar.index')
+                                        <a class="dropdown-item" href="{{ route('asignadoth.index') }}">Asignados DTH</a>
+                                    @endcan
+                                </div>
+                            @endif
                         </li>
+
                         <li class="nav-item"> 
                             @can('asignar_producto.index')                           
                             <a class="nav-link" href="{{ route('asignar.producto.index') }}">Asignar Producto</a>                                                       
@@ -235,6 +282,9 @@
 <!-- JS de Bootstrap y Popper -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
 document.addEventListener("DOMContentLoaded", function () {
     const sidebar = document.querySelector(".sidebar");

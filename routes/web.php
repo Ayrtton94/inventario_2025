@@ -16,6 +16,9 @@ use App\Http\Controllers\{
     PendienteProductoController,
     DetallePendienteProductoController
 };
+use App\Http\Controllers\dth\{
+    PendientedthController, AsignadothController, ProductodthController, Detalles_productodthController
+};
 
 // Página principal
 Route::get('/', function () {
@@ -95,4 +98,31 @@ Route::middleware('auth')->group(function () {
 
     Route::post('api/import.excel', [ImportarController::class, 'importarProductos']);
     Route::post('api/importdetalle.excel', [ImportarController::class, 'importarDetalleProductos']);
+
+    /**
+     * PENDIENTE DTH
+     */
+    Route::resource('pendientedth', PendientedthController::class)->names('pendientedth');
+    Route::get('/listar/pendientedth', [PendientedthController::class, 'Listar']);
+    Route::post('/asignardth/pendientedth', [PendientedthController::class, 'asignardth']);
+
+/**
+     * Asignados DTH
+     */
+    Route::resource('asignadoth', AsignadothController::class)->names('asignadoth');
+    Route::get('/listar/asignadosdth', [AsignadothController::class, 'asignadosdth']);
+
+    /**
+     * PRODUCTOS Y DETALLES dth
+     */
+    Route::resource('productosdth', ProductodthController::class)->names('productosdth');
+    Route::get('/listar/productosdth', [ProductodthController::class, 'Listar']);
+    Route::get('/get/productosdth/{id}', [ProductodthController::class, 'getProduct']);
+    
+    Route::resource('detalles_productodth', Detalles_productodthController::class)->names('detalles_productodth');
+    Route::get('/listar/detailproductodth', [Detalles_productodthController::class, 'listar']);
+    Route::get('/listar/productodth', [Detalles_productodthController::class, 'Producto']);
+    Route::get('/get/detailproductodth/{id}', [Detalles_productodthController::class, 'getDetalles']);
+    Route::get('/productodth/{id}/detalles', [Detalles_productodthController::class, 'getDetalles']);
+
 });

@@ -38,26 +38,35 @@ class TechnicalFormController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-         if ($request->get('id')){
-
+{
+    try {
+        // Si viene con ID, actualiza
+        if ($request->has('id')) {
             $id = $request->get('id');
-
             $data = TechnicalForm::find($id);
 
-            $data->update($request->all());
-    
-        }else{
-            //$request['user_id'] = auth()->id();
+            if (!$data) {
+                return response()->json(['message' => 'Pendiente no encontrado'], 404);
+            }
+
+            // Solo campos permitidos para actualizar
+           $data->update($request->all());
+        } else {
+            // Nuevo registro
+            $request['user_id'] = auth()->id();
+
             $data = TechnicalForm::create($request->all());
         }
 
-        if ($data) {
-            return response()->json($data, 200);
-        } else {
-            return response()->json(['message' => 'Error al crear'], 402);
-        }
+        return response()->json($data, 200);
+
+    } catch (\Exception $e) {
+        return response()->json([
+            'message' => 'Error al crear o actualizar',
+            'error' => $e->getMessage()
+        ], 500);
     }
+}
 
     /**
      * Display the specified resource.

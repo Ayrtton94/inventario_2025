@@ -2,14 +2,14 @@
   <div class="container py-4">
     <div class="card shadow-sm">
       <div class="card-header d-flex justify-content-between align-items-center">
-        <h5 class="mb-0">Pendientes</h5>
+        <h5 class="mb-0">Clientes Asignados</h5>
       </div>
 
       <div class="card-body">
         <!-- Tabla -->
         <div class="table-responsive">
           <table class="table table-bordered table-hover align-middle text-center small">
-            <thead class="table-dark text-nowrap">
+            <thead class="table-danger text-nowrap">
               <tr>
                 <th >Acción</th>
                 <th>#</th>
@@ -108,7 +108,7 @@ export default {
             total: 0,
             
         },
-        };
+      };
     },
 
     created() {
@@ -146,20 +146,16 @@ export default {
         can(permission) {
             return this.permissions.includes(permission);
         },
-        async loadPendientes(page = 1) {
-            try {
-                const response = await axios.get(`/listar/asignados?page=${page}`);
-                this.pendientes = response.data.data;
-                this.pagination = {
-                    current_page: response.data.current_page,
-                    last_page: response.data.last_page,
-                    per_page: response.data.per_page,
-                    total: response.data.total,
-                };
-            } catch (error) {
-                Swal.fire('Error', 'No se pudieron cargar los pendientes', 'error');
-            }
-        },
+async loadPendientes(page = 1) {
+  this.pendientes = [];
+  try {
+    const response = await axios.get(`/listar/asignadosdth?page=${page}`);
+    console.log('Respuesta del backend:', response.data); // 👈🏼 Agrega esto
+    this.pendientes = response.data.data;
+  } catch (error) {
+    Swal.fire('Error', 'No se pudieron cargar los pendientes', 'error');
+  }
+},
 
         /*async getPendientes() {
             try {
@@ -169,36 +165,8 @@ export default {
                 console.error("Error al obtener las áreas:", error);
             }
         },*/
-        irCrear() {
-            window.location.href = '/pendiente/create';
-        },
-        irEditar(id) {
-            window.location.href = `/pendiente/${id}/edit`;
-        },
         irTecnico(id) {
             window.location.href = `/tecnico/create/${id}`;
-        },
-        eliminar(id) {
-            Swal.fire({
-                title: '¿Estás seguro?',
-                text: "¡No podrás revertir esto!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Sí, eliminarlo',
-                cancelButtonText: 'Cancelar',
-            }).then(async (result) => {
-                if (result.isConfirmed) {
-                try {
-                    await axios.delete(`/pendiente/${id}`);
-                    Swal.fire('¡Eliminado!', 'El pendiente ha sido eliminado.', 'success');
-                    this.loadPendientes();
-                } catch (error) {
-                    Swal.fire('Error', 'Hubo un problema al eliminar.', 'error');
-                }
-                }
-            });
         },
     },
     
