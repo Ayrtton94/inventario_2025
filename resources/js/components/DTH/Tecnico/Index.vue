@@ -9,7 +9,7 @@
                             Crear Nuevo
                         </button>
                         <table class="table table-hover table-bordered align-middle text-center">
-                        <thead class="table-primary">
+                        <thead class="table-danger">
                             <tr>
                                 <th colspan="2">ACCION</th>
                                 <th>#</th> 
@@ -115,7 +115,7 @@ import Swal from 'sweetalert2';
 
         async loadFormtec(page = 1) {
             try {
-                const response = await axios.get(`/listar/form_tect?page=${page}`);
+                const response = await axios.get(`/listar/form_tecnicodth?page=${page}`);
                 this.form_tecos = response.data.data;
                 this.pagination = {
                     current_page: response.data.current_page,
@@ -129,11 +129,11 @@ import Swal from 'sweetalert2';
         },
 
         irCrear() {
-            window.location.href = '/tecnico/create';
+            window.location.href = '/tecnicodth/create';
         },
 
         irEditar(id) {
-            window.location.href = `/tecnico/${id}/edit`;
+            window.location.href = `/tecnicodth/${id}/edit`;
         },
 
         eliminar(id) {
@@ -149,7 +149,7 @@ import Swal from 'sweetalert2';
             }).then(async (result) => {
                 if (result.isConfirmed) {
                 try {
-                    await axios.delete(`/tecnico/${id}`);
+                    await axios.delete(`/tecnicodth/${id}`);
                     Swal.fire('¡Eliminado!', 'La ficha ha sido eliminado.', 'success');
                     this.getPendientes();
                 } catch (error) {

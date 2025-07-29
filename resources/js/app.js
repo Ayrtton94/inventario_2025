@@ -137,6 +137,27 @@ app.component('create-detail-products-dth', CreateDetailProductsDth);
 import EditDetailProductsDth from './components/DTH/Detalle_Producto/Edit.vue';
 app.component('edit-detail-products-dth', EditDetailProductsDth);
 
+///Formularios Tecnicos DTH
+import IndexFormTecnicoDth from './components/DTH/Tecnico/Index.vue';
+app.component('index-form-tecnico-dth', IndexFormTecnicoDth);
+
+import CreateFormTecnicoDth from './components/DTH/Tecnico/Create.vue';
+app.component('create-form-tecnico-dth', CreateFormTecnicoDth);
+
+import EditFormTecnicoDth from './components/DTH/Tecnico/Edite.vue';
+app.component('edit-form-tecnico-dth', EditFormTecnicoDth);
+
+///pendiente producto dth
+import IndexPendienteProductoDth from './components/DTH/Asignar_Producto/Index.vue';
+app.component('index-pendiente-producto-dth', IndexPendienteProductoDth);
+
+import CreatePendienteProductoDth from './components/DTH/Asignar_Producto/Create.vue';
+app.component('create-pendiente-producto-dth', CreatePendienteProductoDth);
+
+///Importar DTH
+import IndexImportarDth from './components/DTH/Importar/Index.vue';
+app.component('index-importar-dth', IndexImportarDth);
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

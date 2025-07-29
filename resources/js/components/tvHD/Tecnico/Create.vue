@@ -7,12 +7,12 @@
           <div class="row mb-4">
             <div class="col-md-6">
               <label class="form-label">Nº Abonado</label>
-              <input type="number" class="form-control" v-model="form.abonado">
+              <input type="number" class="form-control" v-model="form.abonado" required readonly>
               <input type="number" class="form-control" v-model="form.pendiente_id" hidden>
             </div>
             <div class="col-md-6">
               <label class="form-label">Fecha</label>
-              <input type="date" class="form-control" v-model="form.fecha_ingreso">
+              <input type="date" class="form-control" v-model="form.fecha_ingreso" required readonly>
             </div>
           </div>
 
@@ -25,32 +25,32 @@
               <div class="row g-3">
                 <div class="col-md-6">
                   <label class="form-label">Nombre titular</label>
-                  <input type="text" class="form-control" v-model="form.nombre">
+                  <input type="text" class="form-control" v-model="form.nombre" required readonly>
                   <input type="text" class="form-control" v-model="form.pendiente_id" hidden>
                 </div>
                 <div class="col-md-6">
                   <label class="form-label">RUI</label>
-                  <input type="text" class="form-control" v-model="form.rut">
+                  <input type="text" class="form-control" v-model="form.rut" required>
                 </div>
                 <div class="col-md-6">
                   <label class="form-label">Dirección</label>
-                  <input type="text" class="form-control" v-model="form.direccion">
+                  <input type="text" class="form-control" v-model="form.direccion" required readonly>
                 </div>
                 <div class="col-md-6">
                   <label class="form-label">Fono</label>
-                  <input type="text" class="form-control" v-model="form.fono">
+                  <input type="text" class="form-control" v-model="form.fono" required readonly>
                 </div>
                 <div class="col-md-4">
                   <label class="form-label">Comuna</label>
-                  <input type="text" class="form-control" v-model="form.comuna">
+                  <input type="text" class="form-control" v-model="form.comuna" required>
                 </div>
                 <div class="col-md-4">
                   <label class="form-label">Ciudad</label>
-                  <input type="text" class="form-control" v-model="form.ciudad">
+                  <input type="text" class="form-control" v-model="form.ciudad" required>
                 </div>
                 <div class="col-md-4">
                   <label class="form-label">Celular</label>
-                  <input type="text" class="form-control" v-model="form.celular">
+                  <input type="text" class="form-control" v-model="form.celular" required>
                 </div>
               </div>
             </div>
@@ -64,16 +64,16 @@
             <div class="card-body row g-3">
               <div class="col-md-4">
                 <label class="form-label">Técnico</label>
-                <input type="text" class="form-control" v-model="form.name_tecnico">
+                <input type="text" class="form-control" v-model="form.name_tecnico" required readonly>
                 <input type="text" class="form-control" v-model="form.user_id" hidden>
               </div>
               <div class="col-md-4">
                 <label class="form-label">RUI</label>
-                <input type="text" class="form-control" v-model="form.rut_tecnico">
+                <input type="text" class="form-control" v-model="form.rut_tecnico" required>
               </div>
               <div class="col-md-4">
                 <label class="form-label">Empresa</label>
-                <input type="text" class="form-control" v-model="form.empresa">
+                <input type="text" class="form-control" v-model="form.empresa" required>
               </div>
             </div>
           </div>

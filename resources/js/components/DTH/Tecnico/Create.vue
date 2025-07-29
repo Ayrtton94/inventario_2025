@@ -18,7 +18,7 @@
 
           <!-- Información del cliente -->
           <div class="card shadow-sm border-0 mb-4">
-            <div class="card-header bg-primary text-white">
+            <div class="card-header bg-danger text-white">
               <h5 class="mb-0">📝 Información del Cliente</h5>
             </div>
             <div class="card-body">
@@ -26,7 +26,7 @@
                 <div class="col-md-6">
                   <label class="form-label">Nombre titular</label>
                   <input type="text" class="form-control" v-model="form.nombre" required readonly>
-                  <input type="text" class="form-control" v-model="form.pendiente_id" hidden>
+                  <input type="text" class="form-control" v-model="form.pendientedths_id" hidden>
                 </div>
                 <div class="col-md-6">
                   <label class="form-label">RUI</label>
@@ -58,7 +58,7 @@
 
           <!-- Datos empresa -->
           <div class="card shadow-sm border-0 mb-4">
-            <div class="card-header bg-primary text-white">
+            <div class="card-header bg-danger text-white">
               <h5 class="mb-0">📅 Datos Empresa de Servicio</h5>
             </div>
             <div class="card-body row g-3">
@@ -80,7 +80,7 @@
 
           <!-- Descripción del servicio -->
           <div class="card shadow-sm border-0 mb-4">
-            <div class="card-header bg-primary text-white">
+            <div class="card-header bg-danger text-white">
               <h5 class="mb-0">🛠️ Descripción del Servicio</h5>
             </div>
             <div class="card-body">
@@ -104,7 +104,7 @@
 
           <!-- Dispositivos -->
           <div class="card shadow-sm border-0 mb-4">
-            <div class="card-header bg-primary text-white">
+            <div class="card-header bg-danger text-white">
               <h5 class="mb-0">🛠️ Dispositivos</h5>
             </div>
             <div class="card-body">
@@ -153,7 +153,7 @@
 
           <!-- Materiales -->
           <div class="card shadow-sm border-0 mb-4">
-            <div class="card-header bg-primary text-white">
+            <div class="card-header bg-danger text-white">
               <h5 class="mb-0">🎛️ Materiales Usados</h5>
             </div>
             <div class="card-body row g-3">
@@ -215,63 +215,66 @@
     </div>
   </div>
 </template>
-
 <script>
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
     export default {
-        name: "Editar",
+      name: "Crear",
       props: {
+        clienteId: {
+          type: Number,
+          required: true
+        },
         tecnicoId: {
           type: Number,
           required: true
         },
       },
-      data() {
+        
+        data() {
           const today = new Date().toISOString().split('T')[0]; // "YYYY-MM-DD"
             return {
                 form: {
-                abonado: '',
-                fecha_ingreso: today,
-                pendiente_id: '', // ← importante
-                nombre: '',
-                direccion: '',
-                comuna: '',
-                ciudad: '',
-                rut: '',
-                fono: '',
-                celular: '',
-                user_id: '', // ← asegúrate que esto esté llegando (puedes hacer `auth()->id()` en el backend y no mandarlo desde Vue)
-                rut_tecnico: '',
-                empresa: '',
-                servis_1: null,
-                servis_2: null,
-                servis_3: null,
-                servis_4: null,
-                servis_5: null,
-                servis_6: null,
-                servis_7: null,
-                servis_detalle: '',
-                settopbox1: '',
-                settopbox2: '',
-                settopbox3: '',
-                settopbox4: '',
-                smartcard1: '',
-                smartcard2: '',
-                smartcard3: '',
-                smartcard4: '',
-                antena: '',
-                conectores: '',
-                pasamuros: '',
-                lnb: '',
-                spliter: '',
-                hdmi: '',
-                cable: '',
-                grampas: '',
-                rca: ''
+                  abonado: '',
+                  fecha_ingreso: today,
+                  pendientedths_id: '', // ← importante
+                  nombre: '',
+                  direccion: '',
+                  comuna: '',
+                  ciudad: '',
+                  rut: '',
+                  fono: '',
+                  celular: '',
+                  user_id: '', // ← asegúrate que esto esté llegando (puedes hacer `auth()->id()` en el backend y no mandarlo desde Vue)
+                  rut_tecnico: '',
+                  empresa: '',
+                  servis_detalle: '',
+                  servis_1: false,
+                  servis_2: false,
+                  servis_3: false,
+                  servis_4: false,
+                  servis_5: false,
+                  servis_6: false,
+                  servis_7: false,
+                  settopbox1: '',
+                  settopbox2: '',
+                  settopbox3: '',
+                  settopbox4: '',
+                  smartcard1: '',
+                  smartcard2: '',
+                  smartcard3: '',
+                  smartcard4: '',
+                  antena: '',
+                  conectores: '',
+                  pasamuros: '',
+                  lnb: '',
+                  spliter: '',
+                  hdmi: '',
+                  cable: '',
+                  grampas: '',
+                  rca: ''
                 },
-                selectedServices: [],
                 serviceLabels: [
                     "Instalación",
                     "Servicio Técnico",
@@ -285,54 +288,82 @@ import axios from 'axios';
             };
         },
         mounted() {   
-            this.getTecnico();        
+            this.getCliente(); 
+            this.getTecnico();  
+            //this.cargarAsignaciones();  
         },
-         methods: {
+        methods: {
             regreso() {
-                window.location.href = '/tecnico'; 
+                window.location.href = '/tecnicodth'; 
+            },
+            async getCliente(id) {
+              try {
+                const response = await axios.get(`/get/pendientedth/${this.clienteId}`);
+                const cliente = response.data;
+
+                // Llenas los campos necesarios del form
+                this.form.pendientedths_id = cliente.id;
+                this.form.abonado = cliente.abonado;
+                this.form.nombre = cliente.nombres;
+                this.form.rut = cliente.rut;
+                this.form.direccion = cliente.direccion;
+                this.form.fono = cliente.tlf_habitacion;
+                this.form.comuna = cliente.comuna;
+                this.form.ciudad = cliente.ciudad;
+                this.form.celular = cliente.tlf_movil;
+              } catch (error) {
+                console.error(error);
+                Swal.fire('Error', 'No se pudo cargar la información del cliente', 'error');
+              }
             },
             async getTecnico() {
                 try {
-                    const response = await axios.get(`/get/tecnico/${this.tecnicoId}`);
-
-                    // Mantiene la estructura de `this.form` y solo actualiza los datos recibidos
-                    Object.assign(this.form, response.data);
-
-                    for (let i = 1; i <= 7; i++) {
-                    const field = `servis_${i}`;
-                    // Asegúrate de que si viene como "1" o "0", lo conviertes a booleano
-                    this.form[field] = Boolean(this.form[field]);
-                    }
-
+                  const response = await axios.get('/api/tecnico/actual');
+                  this.form.name_tecnico = response.data.name;
+                  this.form.user_id = response.data.id;
                 } catch (error) {
-                    console.error(error);
-                    Swal.fire('Error', 'No se pudo cargar la información del cliente', 'error');
+                  console.error('Error al obtener técnico:', error);
                 }
-            },
-
-            formSubmit() {
+              },
+              /*async cargarAsignaciones() {
                 try {
-                    axios.post('/tecnico', this.form)
-                    .then(() => {
-                        Swal.fire('Éxito', 'Venta registrada correctamente', 'success');
-                        // this.resetForm(); // Opcional
-                    })
-                    .catch((err) => {
-                        console.error(err);
-                        Swal.fire('Error', 'Verifica los campos obligatorios', 'error');
-                    });
+                  const res = await axios.get(`/api/pendiente/${this.clienteId}/asignaciones`);
+                  console.log('Asignaciones cargadas:', res.data);
 
-                } catch (error) {
-                    console.error(error);
-                    Swal.fire('Error', 'Error interno', 'error');
+                  const detalles = res.data.flatMap(p => p.detalles.map(d => d.detalle_producto));
+                  
+                  if (detalles[0]) this.form.settopbox1 = detalles[0].stb || '';
+                  if (detalles[1]) this.form.settopbox2 = detalles[1].stb || '';
+                  if (detalles[2]) this.form.settopbox3 = detalles[2].stb || '';
+                  if (detalles[3]) this.form.settopbox4 = detalles[3].stb || '';
+
+                  if (detalles[0]) this.form.smartcard1 = detalles[0].smartcard || '';
+                  if (detalles[1]) this.form.smartcard2 = detalles[1].smartcard || '';
+                  if (detalles[2]) this.form.smartcard3 = detalles[2].smartcard || '';
+                  if (detalles[3]) this.form.smartcard4 = detalles[3].smartcard || '';
+
+                } catch (e) {
+                  console.error('Error al cargar asignaciones:', e);
                 }
-                },
+              },*/
 
+
+            async formSubmit() {
+                  try {
+                    const response = await axios.post('/tecnicodth', this.form);
+                    Swal.fire('Éxito', 'Venta registrada correctamente', 'success');
+                    // Reseteamos los campos si deseas
+                    // this.resetForm();
+                  } catch (error) {
+                    console.error(error); // Ahora sí usa correctamente el error
+                    Swal.fire('Error', 'Verifica los campos obligatorios', 'error');
+                  }
+                },
             resetForm() {
                 this.form = {
                     abonado: '',
                     fecha_ingreso: '',
-                    pendiente_id: '',
+                    pendientedths_id: '',
                     nombre: '',
                     rut: '',
                     direccion: '',
@@ -370,13 +401,11 @@ import axios from 'axios';
                     servis_7: null,
                   };
           this.selectedServices = [];
-
          }
-
-
-         }
+        }         
     }
 </script>
+
 <style scoped>
 .card-header h5 {
   font-weight: bold;

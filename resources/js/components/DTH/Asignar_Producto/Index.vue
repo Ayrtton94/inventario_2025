@@ -3,12 +3,12 @@
     <div class="row justify-content-center">
       <div class="col-lg-10">
         <div class="card shadow rounded-4">
-          <div class="card-header bg-primary text-white fw-bold">
+          <div class="card-header bg-danger text-white fw-bold">
             Lista de Productos Asignados
           </div>
           <div class="card-body">
             <div>
-              <button @click="irCrear" class="btn btn-success shadow-sm" v-if="can('asignar_producto.create')">
+              <button @click="irCrear" class="btn btn-primary shadow-sm" v-if="can('asignar_producto.create')">
                     Crear Nuevo
               </button>
               <table class="table table-striped table-bordered text-center">
@@ -54,7 +54,7 @@
     >
       <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content rounded-4">
-          <div class="modal-header bg-info text-white">
+          <div class="modal-header bg-danger text-white">
             <h5 class="modal-title" id="modalDetallesLabel">
               Detalles del Producto
             </h5>
@@ -115,8 +115,8 @@ export default {
         return {
             permissions: window.userPermissions || [],
             productos: [],
-            productoSeleccionado: {},
-            modalInstance: null,  
+            productoSeleccionado: {},  
+            modalInstance: null,
         }
     },
     created() {
@@ -138,11 +138,11 @@ export default {
             return this.permissions.includes(permission);
       },
       irCrear() {
-                window.location.href = '/asignar-producto/create';
+          window.location.href = '/pendiente_productodth/create';
         },
         async loadProductos() {
             try {
-                const response = await axios.get('/api/pendiente/productos');
+                const response = await axios.get('/api/pendiente_productodth/productos');
                 this.productos = response.data.data;
                 this.pagination = {
                     current_page: response.data.current_page,

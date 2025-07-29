@@ -70,7 +70,7 @@ class Detalles_productodthController extends Controller
      */
     public function edit($id)
     {
-        return view('tvdth.detalle_producto.edit', ['detailproductId' => $id]);
+        return view('tvdth.detalle_producto.edite', ['detailproductId' => $id]);
     }
 
     /**

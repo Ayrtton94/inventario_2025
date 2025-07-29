@@ -35,7 +35,7 @@
             top: 0;
             height: 100vh;
             width: 250px;
-            background: #343a40;
+            background: #083a6c;
             color: white;
             padding-top: 20px;
             transition: all 0.3s ease-in-out;
@@ -47,7 +47,7 @@
         }
 
         .sidebar a {
-            color: rgb(96, 95, 95);
+            color: rgb(95, 95, 96);
             text-decoration: none;
             display: block;
             padding: 13px;
@@ -172,11 +172,20 @@
                             @endif
                         </li>
 
-
-                        <li class="nav-item">
-                            @can('importexcel.index')
-                                <a class="nav-link" href="{{ route('importexcel') }}">Importar</a>
-                            @endcan                            
+                        <li class="nav-item dropdown">
+                            @if(auth()->user()->can('user.index') || auth()->user()->can('importexcel.index'))
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAsignado" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Importar
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownAsignado">
+                                    @can('importexcel.index')
+                                        <a class="dropdown-item" href="{{  route('importexcel') }}">importexcel</a>
+                                    @endcan
+                                    @can('importexcel.index')
+                                        <a class="dropdown-item" href="{{ route('importardth') }}">importexcel DTH</a>
+                                    @endcan
+                                </div>
+                            @endif
                         </li>
 
                         <li class="nav-item">
@@ -191,10 +200,20 @@
                             @endcan                            
                         </li>
 
-                        <li class="nav-item"> 
-                            @can('tecnico.index')                           
-                            <a class="nav-link" href="{{ route('tecnico.index') }}">Formulario tecnico</a>                                                       
-                            @endcan
+                        <li class="nav-item dropdown">
+                            @if(auth()->user()->can('user.index') || auth()->user()->can('tecnico.index'))
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAsignado" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Formulario tecnico
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownAsignado">
+                                    @can('tecnico.index')
+                                        <a class="dropdown-item" href="{{  route('tecnico.index') }}">Formulario tecnico</a>
+                                    @endcan
+                                    @can('tecnico.index')
+                                        <a class="dropdown-item" href="{{ route('tecnicodth.index') }}">Formulario tecnico DTH</a>
+                                    @endcan
+                                </div>
+                            @endif
                         </li>
                         
                         <li class="nav-item dropdown">
@@ -212,11 +231,20 @@
                                 </div>
                             @endif
                         </li>
-
-                        <li class="nav-item"> 
-                            @can('asignar_producto.index')                           
-                            <a class="nav-link" href="{{ route('asignar.producto.index') }}">Asignar Producto</a>                                                       
-                            @endcan
+                        <li class="nav-item dropdown">
+                            @if(auth()->user()->can('user.index') || auth()->user()->can('asignar_producto.index'))
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAsignado" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Asignar Producto
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownAsignado">
+                                    @can('asignar.index')
+                                        <a class="dropdown-item" href="{{ route('asignar.producto.index') }}">Asignar Producto</a>
+                                    @endcan
+                                    @can('asignar.index')
+                                        <a class="dropdown-item" href="{{ route('pendiente_productodth.index') }}">Asignar Producto DTH</a>
+                                    @endcan
+                                </div>
+                            @endif
                         </li>
                 </ul>
             </div>           

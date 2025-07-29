@@ -147,5 +147,10 @@ class PendientedthController extends Controller
     return response()->json(['message' => 'Asignación completa']);
 }
 
+public function getPendientes($id){
+        $data = Pendientedth::find($id);
+        return response()->json($data, 200);
+    }
+
     
 }

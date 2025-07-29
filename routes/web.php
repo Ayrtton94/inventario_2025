@@ -17,7 +17,13 @@ use App\Http\Controllers\{
     DetallePendienteProductoController
 };
 use App\Http\Controllers\dth\{
-    PendientedthController, AsignadothController, ProductodthController, Detalles_productodthController
+    PendientedthController, 
+    AsignadothController, 
+    ProductodthController, 
+    Detalles_productodthController, 
+    TechnicalFormdthController,
+    PendienteProductodthController,
+    ImportarControllerdthController
 };
 
 // Página principal
@@ -105,6 +111,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('pendientedth', PendientedthController::class)->names('pendientedth');
     Route::get('/listar/pendientedth', [PendientedthController::class, 'Listar']);
     Route::post('/asignardth/pendientedth', [PendientedthController::class, 'asignardth']);
+    Route::get('/get/pendientedth/{id}', [PendientedthController::class, 'getPendientes']);
 
 /**
      * Asignados DTH
@@ -124,5 +131,32 @@ Route::middleware('auth')->group(function () {
     Route::get('/listar/productodth', [Detalles_productodthController::class, 'Producto']);
     Route::get('/get/detailproductodth/{id}', [Detalles_productodthController::class, 'getDetalles']);
     Route::get('/productodth/{id}/detalles', [Detalles_productodthController::class, 'getDetalles']);
+
+    
+    /**
+     * FORMULARIO TÉCNICO DTH
+     */
+    Route::resource('tecnicodth', TechnicalFormdthController::class)->names('tecnicodth');
+    Route::get('/tecnicodth/create/{cliente}', [TechnicalFormdthController::class, 'create']);
+    Route::get('/listar/form_tecnicodth', [TechnicalFormdthController::class, 'Listar']);
+    Route::get('/get/tecnicodth/{id}', [TechnicalFormdthController::class, 'getTecnico']);
+    Route::get('/api/tecnicodth/actual', fn () => response()->json(auth()->user()));
+
+    /**
+     * PENDIENTE PRODUCTO DTH
+     */
+    Route::resource('pendiente_productodth', PendienteProductodthController::class)->names('pendiente_productodth');
+    Route::get('/api/pendiente_productodth/productos', [PendienteProductodthController::class, 'LoadPendienteProductos']);
+    Route::get('/productdth/buscar/{codigo}', [ProductodthController::class, 'buscarPorCodigo']);
+
+    /**
+     * Importar DTH
+     */
+
+    Route::get('/importardth', [App\Http\Controllers\dth\ImportarControllerdthController::class, 'index'])->name('importardth');
+     Route::post('api/pendientethd/importar', [ImportarControllerdthController::class, 'importarPendientes']);
+    Route::post('api/productothd/importar', [ImportarControllerdthController::class, 'importarProductos']);
+    Route::post('api/productothd/importdetalle', [ImportarControllerdthController::class, 'importarDetalleProductos']);
+
 
 });

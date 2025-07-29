@@ -232,7 +232,7 @@ export default {
             window.location.href = `/pendientedth/${id}/edit`;
         },
         irTecnico(id) {
-            window.location.href = `/tecnico/create/${id}`;
+            window.location.href = `/tecnicodth/create/${id}`;
         },
         /*irAsignarProducto(id) {
             window.location.href = `/pendiente/${id}/asignar-producto`;

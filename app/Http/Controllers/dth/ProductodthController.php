@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\dth;
 
-use App\Http\Controllers\Controller;
-use App\Models\dth\Productodth;
 use Illuminate\Http\Request;
+use App\Models\dth\Productodth;
 use Illuminate\Validation\Rule;
+use App\Http\Controllers\Controller;
+use App\Models\dth\DetallePendienteProductodth;
 
 class ProductodthController extends Controller
 {
@@ -120,6 +121,26 @@ public function update(Request $request, $id)
 public function getProduct($id){
         $data = Productodth::find($id);
         return response()->json($data, 200);
+    }
+
+    public function buscarPorCodigo($codigo)
+    {
+        $producto = Productodth::where('cod_producto', $codigo)->first();
+
+        if (!$producto) {
+            return response()->json(['error' => 'Producto no encontrado'], 404);
+        }
+
+        // Obtener los IDs de los detalles ya asignados
+        $detallesAsignados = DetallePendienteProductodth::pluck('detalle_producto_id')->toArray();
+
+        // Filtrar detalles del producto que no estén asignados
+        $detallesDisponibles = $producto->detallesdth()->whereNotIn('id', $detallesAsignados)->get();
+
+        return response()->json([
+            'producto' => $producto,
+            'detalles' => $detallesDisponibles,
+        ]);
     }
 
 

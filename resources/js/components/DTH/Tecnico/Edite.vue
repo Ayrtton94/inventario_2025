@@ -18,7 +18,7 @@
 
           <!-- Información del cliente -->
           <div class="card shadow-sm border-0 mb-4">
-            <div class="card-header bg-primary text-white">
+            <div class="card-header bg-danger text-white">
               <h5 class="mb-0">📝 Información del Cliente</h5>
             </div>
             <div class="card-body">
@@ -26,7 +26,7 @@
                 <div class="col-md-6">
                   <label class="form-label">Nombre titular</label>
                   <input type="text" class="form-control" v-model="form.nombre" required readonly>
-                  <input type="text" class="form-control" v-model="form.pendiente_id" hidden>
+                  <input type="text" class="form-control" v-model="form.pendientedths_id" hidden>
                 </div>
                 <div class="col-md-6">
                   <label class="form-label">RUI</label>
@@ -58,7 +58,7 @@
 
           <!-- Datos empresa -->
           <div class="card shadow-sm border-0 mb-4">
-            <div class="card-header bg-primary text-white">
+            <div class="card-header bg-danger text-white">
               <h5 class="mb-0">📅 Datos Empresa de Servicio</h5>
             </div>
             <div class="card-body row g-3">
@@ -80,7 +80,7 @@
 
           <!-- Descripción del servicio -->
           <div class="card shadow-sm border-0 mb-4">
-            <div class="card-header bg-primary text-white">
+            <div class="card-header bg-danger text-white">
               <h5 class="mb-0">🛠️ Descripción del Servicio</h5>
             </div>
             <div class="card-body">
@@ -104,7 +104,7 @@
 
           <!-- Dispositivos -->
           <div class="card shadow-sm border-0 mb-4">
-            <div class="card-header bg-primary text-white">
+            <div class="card-header bg-danger text-white">
               <h5 class="mb-0">🛠️ Dispositivos</h5>
             </div>
             <div class="card-body">
@@ -153,7 +153,7 @@
 
           <!-- Materiales -->
           <div class="card shadow-sm border-0 mb-4">
-            <div class="card-header bg-primary text-white">
+            <div class="card-header bg-danger text-white">
               <h5 class="mb-0">🎛️ Materiales Usados</h5>
             </div>
             <div class="card-body row g-3">
@@ -215,7 +215,6 @@
     </div>
   </div>
 </template>
-
 <script>
 import Swal from 'sweetalert2';
 import axios from 'axios';
@@ -234,7 +233,7 @@ import axios from 'axios';
                 form: {
                 abonado: '',
                 fecha_ingreso: today,
-                pendiente_id: '', // ← importante
+                pendientedths_id: '', // ← importante
                 nombre: '',
                 direccion: '',
                 comuna: '',
@@ -293,7 +292,7 @@ import axios from 'axios';
             },
             async getTecnico() {
                 try {
-                    const response = await axios.get(`/get/tecnico/${this.tecnicoId}`);
+                    const response = await axios.get(`/get/tecnicodth/${this.tecnicoId}`);
 
                     // Mantiene la estructura de `this.form` y solo actualiza los datos recibidos
                     Object.assign(this.form, response.data);
@@ -312,7 +311,7 @@ import axios from 'axios';
 
             formSubmit() {
                 try {
-                    axios.post('/tecnico', this.form)
+                    axios.post('/tecnicodth', this.form)
                     .then(() => {
                         Swal.fire('Éxito', 'Venta registrada correctamente', 'success');
                         // this.resetForm(); // Opcional
@@ -331,7 +330,7 @@ import axios from 'axios';
             resetForm() {
                 this.form = {
                     abonado: '',
-                    fecha_ingreso: '',
+                    pendientedths_id: '',
                     pendiente_id: '',
                     nombre: '',
                     rut: '',
