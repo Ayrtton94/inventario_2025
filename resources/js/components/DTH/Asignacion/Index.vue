@@ -166,7 +166,7 @@ async loadPendientes(page = 1) {
             }
         },*/
         irTecnico(id) {
-            window.location.href = `/tecnico/create/${id}`;
+            window.location.href = `/tecnicodth/create/${id}`;
         },
     },
     

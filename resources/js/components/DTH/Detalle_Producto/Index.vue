@@ -44,17 +44,17 @@
                         <nav v-if="pagination.last_page > 1" class="d-flex justify-content-center mt-4">
                             <ul class="pagination">
                             <li class="page-item" :class="{ disabled: pagination.current_page === 1 }">
-                               <a @click.prevent="loadDetailProdt(pagination.current_page - 1)" class="page-link" href="#">
+                               <a @click.prevent="loadDetailProduct(pagination.current_page - 1)" class="page-link" href="#">
                                 <i class="fas fa-chevron-left"></i>
                                 </a>
                             </li>
                             <li v-for="page in paginationLinks" :key="page" class="page-item" :class="{ active: page === pagination.current_page }">
-                                <a @click.prevent="loadDetailProdt(page)" class="page-link" href="#">
+                                <a @click.prevent="loadDetailProduct(page)" class="page-link" href="#">
                                 {{ page }}
                                 </a>
                             </li>
                             <li class="page-item" :class="{ disabled: pagination.current_page === pagination.last_page }">
-                               <a @click.prevent="loadDetailProdt(pagination.current_page + 1)" class="page-link" href="#">
+                               <a @click.prevent="loadDetailProduct(pagination.current_page + 1)" class="page-link" href="#">
                                 <i class="fas fa-chevron-right"></i>
                                 </a>
                             </li>

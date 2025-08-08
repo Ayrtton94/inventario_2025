@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('rut');
             $table->string('fono');
             $table->string('celular');
+            $table->string('google_maps_link');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('rut_tecnico'); // corregido

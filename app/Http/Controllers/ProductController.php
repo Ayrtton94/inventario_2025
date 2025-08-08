@@ -117,6 +117,7 @@ public function store(Request $request)
     // ProductController.php
     public function buscarPorCodigo($codigo)
     {
+        // Buscar el producto por código
         $producto = Product::where('cod_producto', $codigo)->first();
 
         if (!$producto) {
@@ -126,8 +127,11 @@ public function store(Request $request)
         // Obtener los IDs de los detalles ya asignados
         $detallesAsignados = DetallePendienteProducto::pluck('detalle_producto_id')->toArray();
 
-        // Filtrar detalles del producto que no estén asignados
-        $detallesDisponibles = $producto->detalles()->whereNotIn('id', $detallesAsignados)->get();
+        // Filtrar detalles que no estén asignados y no tengan estado 'A'
+        $detallesDisponibles = $producto->detalles()
+            ->whereNotIn('id', $detallesAsignados)
+            ->where('estado', '!=', 'A') // Excluir los de estado 'A'
+            ->get();
 
         return response()->json([
             'producto' => $producto,

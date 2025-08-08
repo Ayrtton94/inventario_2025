@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\TechnicalForm;
+use App\Models\Detalles_producto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -37,10 +38,9 @@ class TechnicalFormController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+public function store(Request $request)
 {
     try {
-        // Si viene con ID, actualiza
         if ($request->has('id')) {
             $id = $request->get('id');
             $data = TechnicalForm::find($id);
@@ -49,13 +49,43 @@ class TechnicalFormController extends Controller
                 return response()->json(['message' => 'Pendiente no encontrado'], 404);
             }
 
-            // Solo campos permitidos para actualizar
-           $data->update($request->all());
-        } else {
-            // Nuevo registro
-            $request['user_id'] = auth()->id();
+            $data->update($request->all());
 
+        } else {
+            $request['user_id'] = auth()->id();
             $data = TechnicalForm::create($request->all());
+
+            // Actualizar estado de STBs y SmartCards
+            for ($i = 1; $i <= 4; $i++) {
+                $stbField = "settopbox{$i}";
+                $smartField = "smartcard{$i}";
+
+                // 👉 Buscar por STB
+                if ($request->filled($stbField)) {
+                    $stbValue = $request->input($stbField);
+                    $detalle = Detalles_producto::where('stb', $stbValue)->first();
+
+                    if ($detalle) {
+                        $detalle->estado = 'A'; // o el estado que necesites
+                        $detalle->save();
+                    } else {
+                        \Log::warning("STB no encontrado: " . $stbValue);
+                    }
+                }
+
+                // 👉 Buscar por SmartCard
+                if ($request->filled($smartField)) {
+                    $smartValue = $request->input($smartField);
+                    $detalle = Detalles_producto::where('stb', $smartValue)->first();
+
+                    if ($detalle) {
+                        $detalle->estado = 'A'; // mismo estado
+                        $detalle->save();
+                    } else {
+                        \Log::warning("SmartCard no encontrada: " . $smartValue);
+                    }
+                }
+            }
         }
 
         return response()->json($data, 200);

@@ -89,28 +89,22 @@ class Detalles_productodthController extends Controller
         //
     }
 
-    public function listar()
-    {
-         $detalles_productos = Detalles_productodth::paginate(10);
-         
-        $data = $detalles_productos->map(function ($detalles_producto) {
-            return [
-                'id' => $detalles_producto->id,
-                'fecha_ingreso'=> $detalles_producto->fecha_ingreso,         
-                'stb'=> $detalles_producto->stb,
-                'cod_art'=> $detalles_producto->cod_art,
-                'estado'=> $detalles_producto->estado
-            ];
-        });
+public function listar()
+{
+    // Paginamos los detalles cuyo estado no sea 'A'
+    $detalles_productos = Detalles_productodth::where('estado', '!=', 'A')->paginate(10);
 
-        return response()->json([
-            'data' => $data,
-            'current_page' => $detalles_productos->currentPage(),
-            'last_page' => $detalles_productos->lastPage(),
-            'per_page' => $detalles_productos->perPage(),
-            'total' => $detalles_productos->total(),
-        ], 200);
-    }
+    // Transformamos cada item del paginado
+    $data = $detalles_productos->items(); // Ya devuelve los items sin necesidad de map si no vas a modificar
+
+    return response()->json([
+        'data' => $data,
+        'current_page' => $detalles_productos->currentPage(),
+        'last_page' => $detalles_productos->lastPage(),
+        'per_page' => $detalles_productos->perPage(),
+        'total' => $detalles_productos->total(),
+    ], 200);
+}
 
      public function Producto()
     {

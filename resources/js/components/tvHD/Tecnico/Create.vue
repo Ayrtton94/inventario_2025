@@ -55,7 +55,28 @@
               </div>
             </div>
           </div>
-
+            <!-- Ubicación en Google Maps -->
+            <div class="card shadow-sm border-0 mb-4">
+              <div class="card-header bg-primary text-white d-flex align-items-center">
+                <i class="bi bi-geo-alt-fill me-2"></i>
+                <h5 class="mb-0">Ubicación en Google Maps</h5>
+              </div>
+              <div class="card-body row g-3">
+                <div class="col-md-12">
+                  <label class="form-label">Enlace de Google Maps</label>
+                  <div class="input-group">
+                    <span class="input-group-text">
+                      <i class="bi bi-link-45deg"></i>
+                    </span>
+                    <input type="text" 
+                          class="form-control" 
+                          v-model="form.google_maps_link" 
+                          placeholder="Pega aquí el enlace de Google Maps" 
+                          required>
+                  </div>
+                </div>
+              </div>
+            </div>
           <!-- Datos empresa -->
           <div class="card shadow-sm border-0 mb-4">
             <div class="card-header bg-primary text-white">
@@ -246,6 +267,7 @@ import axios from 'axios';
                   rut: '',
                   fono: '',
                   celular: '',
+                  google_maps_link: '',
                   user_id: '', // ← asegúrate que esto esté llegando (puedes hacer `auth()->id()` en el backend y no mandarlo desde Vue)
                   rut_tecnico: '',
                   empresa: '',
@@ -371,6 +393,7 @@ import axios from 'axios';
                     comuna: '',
                     ciudad: '',
                     celular: '',
+                    google_maps_link: '',
                     rut_tecnico: '',
                     rui: '',
                     empresa: '',

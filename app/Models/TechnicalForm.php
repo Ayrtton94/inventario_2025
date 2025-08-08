@@ -23,6 +23,7 @@ class TechnicalForm extends Model
         'rut',
         'fono',
         'celular',
+        'google_maps_link',
         'user_id',
         'rut_tecnico',
         'name_tecnico',

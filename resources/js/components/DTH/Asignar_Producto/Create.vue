@@ -3,7 +3,7 @@
     <div class="row justify-content-center">
       <div class="col-md-10">
         <div class="card shadow">
-          <div class="card-header bg-danger text-white">Asignar Producto</div>
+          <div class="card-header bg-danger text-white">Asignar Producto as</div>
 
           <div class="card-body">
             <form @submit.prevent="guardarAsignaciones">

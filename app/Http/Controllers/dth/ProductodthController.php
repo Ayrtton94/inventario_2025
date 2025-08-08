@@ -125,6 +125,7 @@ public function getProduct($id){
 
     public function buscarPorCodigo($codigo)
     {
+        // Buscar el producto por código
         $producto = Productodth::where('cod_producto', $codigo)->first();
 
         if (!$producto) {
@@ -134,8 +135,11 @@ public function getProduct($id){
         // Obtener los IDs de los detalles ya asignados
         $detallesAsignados = DetallePendienteProductodth::pluck('detalle_producto_id')->toArray();
 
-        // Filtrar detalles del producto que no estén asignados
-        $detallesDisponibles = $producto->detallesdth()->whereNotIn('id', $detallesAsignados)->get();
+        // Filtrar detalles que no estén asignados y no tengan estado 'A'
+        $detallesDisponibles = $producto->detallesdth()
+            ->whereNotIn('id', $detallesAsignados)
+            ->where('estado', '!=', 'A') // Excluir los de estado 'A'
+            ->get();
 
         return response()->json([
             'producto' => $producto,
